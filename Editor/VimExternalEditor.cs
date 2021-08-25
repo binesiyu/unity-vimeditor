@@ -39,7 +39,7 @@ namespace Vim.Editor
                 new CodeEditor.Installation{
                     Name = "VimR",
                     // Installed with brew
-                    Path = "vimr",
+                    Path = "/usr/local/bin/vimr",
                 },
                 new CodeEditor.Installation{
                     Name = "MacVim",
@@ -124,7 +124,7 @@ namespace Vim.Editor
         const string k_editorpath_key = "vimcode_editorpath";
         static string GetVimEditorPath()
         {
-            return EditorPrefs.GetString(k_editorpath_key, "/usr/local/bin/mvim");
+            return EditorPrefs.GetString(k_editorpath_key, "/usr/local/bin/vimr");
         }
 
         const string k_servername_key = "vimcode_servername";
