@@ -37,6 +37,11 @@ namespace Vim.Editor
                 // exist on disk. Use some standard paths and search in
                 // PATH.
                 new CodeEditor.Installation{
+                    Name = "VimR",
+                    // Installed with brew
+                    Path = "vimr",
+                },
+                new CodeEditor.Installation{
                     Name = "MacVim",
                     // Installed with brew
                     Path = "/usr/local/bin/mvim",
@@ -393,7 +398,7 @@ namespace Vim.Editor
                     break;
             }
 
-            start_info.Arguments = $"--servername {GetServerName()} --remote-silent +\"call cursor({line},{column})\" {GetExtraCommands()} {path} \"{file}\"";
+            start_info.Arguments = $"--nvim --servername {GetServerName()} --remote-silent +\"call cursor({line},{column})\" {GetExtraCommands()} {path} \"{file}\"";
 
             //~ Debug.Log($"[VimExternalEditor] Launching {start_info.FileName} {start_info.Arguments}");
 
@@ -409,7 +414,7 @@ namespace Vim.Editor
             ProcessStartInfo start_info = BuildVim();
             // foreground() doesn't seem to work on Windows. :help foreground() recommends remote_foreground.
             // Use --clean to prevent delay of loading user's vim config.
-            start_info.Arguments = $"--clean +\"call remote_foreground('{GetServerName()}')\" +quit";
+            start_info.Arguments = $"--nvim --clean +\"call remote_foreground('{GetServerName()}')\" +quit";
             Process.Start(start_info);
         }
 
