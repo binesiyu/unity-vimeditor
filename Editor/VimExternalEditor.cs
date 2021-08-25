@@ -75,11 +75,13 @@ namespace Vim.Editor
 #if UNITY_EDITOR_WIN
             // batch file is preferred because if user set it up, they
             // probably want to use it.
+            "vimr.bat",
             "gvim.bat",
             // note: scoop shim opens a command prompt in background,
             // install batch file to prevent that.
             "gvim.exe",
 #elif UNITY_EDITOR_OSX
+            "vimr",
             // Are there alternatives?
             "mvim",
             // installed with gtk?
@@ -398,7 +400,7 @@ namespace Vim.Editor
                     break;
             }
 
-            start_info.Arguments = $"--nvim --servername {GetServerName()} --remote-silent +\"call cursor({line},{column})\" {GetExtraCommands()} {path} \"{file}\"";
+            start_info.Arguments = $" --nvim --servername {GetServerName()} --remote-silent +\"call cursor({line},{column})\" {GetExtraCommands()} {path} \"{file}\"";
 
             //~ Debug.Log($"[VimExternalEditor] Launching {start_info.FileName} {start_info.Arguments}");
 
@@ -414,7 +416,7 @@ namespace Vim.Editor
             ProcessStartInfo start_info = BuildVim();
             // foreground() doesn't seem to work on Windows. :help foreground() recommends remote_foreground.
             // Use --clean to prevent delay of loading user's vim config.
-            start_info.Arguments = $"--nvim --clean +\"call remote_foreground('{GetServerName()}')\" +quit";
+            start_info.Arguments = $" --nvim --clean +\"call remote_foreground('{GetServerName()}')\" +quit";
             Process.Start(start_info);
         }
 
